@@ -1,18 +1,27 @@
-from flask import request, make_response, jsonify
+from flask import request, make_response, jsonify, abort
 import data as DATA
 import json
 import matplotlib.path as mplPath
 
 def post_location():
-    lon = float(request.form.get('longitude'))
-    lat = float(request.form.get('latitude'))
+    """Receives a request and routes it.
+    """
+    try:
+        lon = float(request.form.get('longitude'))
+        lat = float(request.form.get('latitude'))
+    except TypeError as e:
+        abort(400)
 
     data = check_location(lon, lat)
 
     return jsonify(data)
 
 def check_location(lon, lat):
-    """Receives a request
+    """Checks the location of a pair of coordinates
+    args:
+     -  lon: a float describing a longitude coordinate
+     -  lat: a float describing a latitude coordinate
+    returns:
     """
     data = query_data()
 
