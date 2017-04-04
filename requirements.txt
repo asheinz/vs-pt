@@ -1,0 +1,2 @@
+flask==0.12.1
+matplotlib==2.0.0
